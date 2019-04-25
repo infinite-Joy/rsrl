@@ -1,4 +1,4 @@
-#[macro_use]
+#[macro_use(clip)]
 extern crate rsrl;
 #[macro_use]
 extern crate slog;
@@ -12,6 +12,7 @@ use rsrl::{
     logging,
     policies::parameterised::Gibbs,
 };
+
 use rsrl::clip;
 
 use rsrl::consts::{FOUR_THIRDS, G, TWELVE_DEGREES};
@@ -172,7 +173,7 @@ impl Domain for CartPole {
 }
 
 fn main() {
-    let domain = MountainCar::default();
+    let domain = CartPole::default();
 
     let n_actions = domain.action_space().card().into();
     let bases = Fourier::from_space(3, domain.state_space()).with_constant();
@@ -191,7 +192,7 @@ fn main() {
     let mut agent = A2C::new(critic, policy, 0.01);
 
     let logger = logging::root(logging::stdout());
-    let domain_builder = Box::new(MountainCar::default);
+    let domain_builder = Box::new(CartPole::default);
 
     // Training phase:
     let _training_result = {

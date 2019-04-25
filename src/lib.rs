@@ -19,7 +19,7 @@ pub extern crate spaces as geometry;
 mod macros;
 mod utils;
 
-pub(crate) mod consts;
+pub mod consts;
 pub mod control;
 pub mod core;
 pub mod domains;
